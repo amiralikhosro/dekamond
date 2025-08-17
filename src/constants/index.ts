@@ -12,8 +12,8 @@ export const STORAGE_KEYS = {
 } as const;
 
 export const COOKIE_NAMES = {
-  USER: 'user',
-  SESSION: 'session'
+  USER: STORAGE_KEYS.USER,
+  SESSION: STORAGE_KEYS.SESSION
 } as const;
 
 export const API_ENDPOINTS = {

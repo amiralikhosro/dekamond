@@ -1,13 +1,13 @@
 'use client'
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { setStorageItem } from '@/utils/localStorage';
-import { Input, Button } from '@/components/ui';
-import { getUser } from '@/services/user';
+import { Button, Input } from '@/components/ui';
 import { config, cookieSettings } from '@/config';
+import { COOKIE_NAMES, STORAGE_KEYS } from '@/constants';
+import { getUser } from '@/services/user';
 import { AuthFormData } from '@/types/storage';
-import { getUserFriendlyMessage, AppError } from '@/utils/errorHandler';
+import { setStorageItem } from '@/utils/localStorage';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import styles from './page.module.scss';
 
 const AuthPage: React.FC = () => {
@@ -63,9 +63,9 @@ const useSubmit = () => {
             const response = await getUser();
 
             if (!response.success || !response.data) {
-                const errorMessage = response.error ?
-                    getUserFriendlyMessage(new AppError(response.error.message)) :
-                    'Failed to fetch user data';
+                //TODO show error message const errorMessage = response.error ?
+                //     getUserFriendlyMessage(new AppError(response.error.message)) :
+                //     'Failed to fetch user data';
 
                 //TODO toast(errorMessage)
                 return;
@@ -73,10 +73,10 @@ const useSubmit = () => {
 
             const userData = response.data;
 
-            setStorageItem('user', userData);
+            setStorageItem(STORAGE_KEYS.USER, userData);
 
             // Set secure cookie with proper configuration
-            const cookieValue = `user=${JSON.stringify(userData)}`;
+            const cookieValue = `${COOKIE_NAMES.USER}=${JSON.stringify(userData)}`;
             const cookieOptions = [
                 `path=${cookieSettings.path}`,
                 `max-age=${cookieSettings.maxAge}`,
@@ -89,9 +89,9 @@ const useSubmit = () => {
             router.push('/dashboard');
         } catch (error) {
             console.error('Login error:', error);
-            const errorMessage = error instanceof AppError ?
-                getUserFriendlyMessage(error) :
-                'An unexpected error occurred during login. Please try again.';
+            //TODO show error message const errorMessage = error instanceof AppError ?
+            //     getUserFriendlyMessage(error) :
+            //     'An unexpected error occurred during login. Please try again.';
             //TODO toast(errorMessage)
 
         }
