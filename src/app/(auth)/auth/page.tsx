@@ -5,6 +5,7 @@ import { COOKIE_NAMES, STORAGE_KEYS } from '@/constants';
 import { getUser } from '@/services/user';
 import { AuthFormData } from '@/types/storage';
 import { setStorageItem } from '@/utils/localStorage';
+import { createNumericInputHandlers } from '@/utils/inputValidation';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,7 +18,8 @@ const AuthPage: React.FC = () => {
         formState: { errors, isSubmitting },
     } = useForm<AuthFormData>();
 
-    const { onSubmit } = useSubmit()
+    const { onSubmit } = useSubmit();
+    const { handleKeyDown, handleInput } = createNumericInputHandlers();
 
     return (
         <div className={styles.authPage}>
@@ -36,6 +38,8 @@ const AuthPage: React.FC = () => {
                             }
                         })}
                         error={errors.phoneNumber?.message}
+                        onKeyDown={handleKeyDown}
+                        onInput={handleInput}
                     />
                     <Button
                         type="submit"
