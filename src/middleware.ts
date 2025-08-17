@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { COOKIE_NAMES } from './constants';
 
 export function middleware(req: NextRequest) {
-    const isLoggedIn = req.cookies.get('user');
+    const isLoggedIn = req.cookies.get(COOKIE_NAMES.USER);
 
     if (!isLoggedIn && !req.nextUrl.pathname.startsWith('/auth')) {
         return NextResponse.redirect(new URL('/auth', req.url));
