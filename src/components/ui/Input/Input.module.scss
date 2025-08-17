@@ -1,0 +1,117 @@
+@use '@/styles/variables' as *;
+
+.inputWrapper {
+  width: 100%;
+  color: var(--color-foreground);
+  
+  .label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: $gray-700;
+    margin-bottom: 0.25rem;
+  }
+  
+  .input {
+    @include input-base;
+    
+    // Variants
+    &.default {
+      background-color: white;
+      padding: 0.5rem 0.75rem;
+      
+      &:focus {
+        border-color: var(--color-primary);
+      }
+    }
+    
+    &.outlined {
+      border: 2px solid $gray-300;
+      background-color: transparent;
+      padding: 0.5rem 0.75rem;
+      
+      &:focus {
+        border-color: var(--color-primary);
+      }
+    }
+    
+    &.filled {
+      border: none;
+      background-color: $gray-100;
+      padding: 0.5rem 0.75rem;
+      
+      &:focus {
+        background-color: white;
+        box-shadow: 0 0 0 2px var(--color-primary);
+      }
+    }
+    
+    // Sizes
+    &.sm {
+      padding: 0.25rem 0.5rem;
+      font-size: var(--font-size-sm);
+    }
+    
+    &.md {
+      padding: 0.5rem 0.75rem;
+      font-size: var(--font-size-md);
+    }
+    
+    &.lg {
+      padding: 0.75rem 1rem;
+      font-size: var(--font-size-lg);
+    }
+    
+    // Error state
+    &.error {
+      border-color: #f97316;
+      
+      &:focus {
+        border-color: #f97316;
+        box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px #f97316;
+      }
+    }
+    
+    // Disabled state
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: $gray-50;
+    }
+  }
+  
+  .errorMessage {
+    margin-top: 0.25rem;
+    font-size: var(--font-size-xs);
+    color: #f97316;
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .inputWrapper {
+    .label {
+      color: $gray-300;
+    }
+    
+    .input {
+      &.default {
+        background-color: $gray-800;
+      border-color: $gray-600;
+        color: var(--color-foreground);
+      }
+      
+      &.filled {
+        background-color: $gray-700;
+        
+        &:focus {
+          background-color: $gray-800;
+        }
+      }
+      
+      &:disabled {
+        background-color: $gray-900;
+      }
+    }
+  }
+}
